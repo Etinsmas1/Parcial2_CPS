@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "c0fc37c3-1215-4d21-8a53-2cbe451523d1",
+		"name": "Github_CRUD_Diego_Pérez",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RetrieveUserRepositories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"etinsmas1\");\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"calidad2021\");\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"PostmanTest\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASEurl}}/users/etinsmas1/repos",
+					"host": [
+						"{{BASEurl}}"
+					],
+					"path": [
+						"users",
+						"etinsmas1",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRepository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "headerPrefix",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"PostmanNameChangeTest\",\"description\": \"This is your test repository\",\"homepage\": \"https://github.com\",\"private\": false,\"has_issues\": true,\"has_projects\": true,\"has_wiki\": true}"
+				},
+				"url": {
+					"raw": "{{BASEurl}}/user/repos",
+					"host": [
+						"{{BASEurl}}"
+					],
+					"path": [
+						"user",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRepository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"PostmanNameChangeTest\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "headerPrefix",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"PostmanNameChangeTest\",\r\n\"description\": \"This is your test repository\",\r\n\"homepage\": \"https://github.com\",\r\n\"private\": false,\r\n\"has_issues\": true,\r\n\"has_projects\": true,\r\n\"has_wiki\": true\r\n}"
+				},
+				"url": {
+					"raw": "https://api.gSithub.com/repos/etinsmas1/:repo",
+					"protocol": "https",
+					"host": [
+						"api",
+						"gSithub",
+						"com"
+					],
+					"path": [
+						"repos",
+						"etinsmas1",
+						":repo"
+					],
+					"variable": [
+						{
+							"key": "repo",
+							"value": "PostmanTest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.github.com/repos/etinsmas1/PostmanNameChangeTest",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"repos",
+						"etinsmas1",
+						"PostmanNameChangeTest"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://api.github.com}"
+		},
+		{
+			"key": "baseURL",
+			"value": "github"
+		},
+		{
+			"key": "BASEURL",
+			"value": "com"
+		},
+		{
+			"key": "BASEurl",
+			"value": "https://api.github.com"
+		}
+	]
+}
